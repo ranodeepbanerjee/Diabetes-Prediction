@@ -3,7 +3,7 @@ import pickle
 import streamlit as st
 
 # Loading the saved data
-loaded_model = pickle.load(open('C:/Users/LENOVO/OneDrive/Documents/Personal Projects/Diabetes-Prediction/trained_model.sav', 'rb'))
+loaded_model = pickle.load(open('~/trained_model.sav', 'rb'))
 
 
 # creating a function for prediction
