@@ -1,6 +1,8 @@
 # Diabetes-Prediction
 Live webapp link: https://ranodeepbanerjee-diabetes-prediction.streamlit.app/<br>
-Kaggle notebook link: https://www.kaggle.com/ranodeepbanerjee/diabetes-prediction
+Kaggle notebook link: https://www.kaggle.com/ranodeepbanerjee/diabetes-prediction<br>
+
+Sample input values to try the web app: 2	197	70	45	543	30.5	0.158	53 
 
 ## Introduction
 This is a machine learning project that aims to predict whether a person has diabetes or not based on certain diagnostic measurements. The dataset used for this project is the [Pima Indians Diabetes Database](https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database), which contains diagnostic measurements for 768 women of Pima Indian heritage.
