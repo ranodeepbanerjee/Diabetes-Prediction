@@ -58,10 +58,6 @@ def main():
 
         skin_thickness = st.number_input('Skin Thickness value', min_value=0, step=1)
 
-    with col2:
-
-        st.header('Enter Patient Information (Contd.)')
-
         insulin = st.number_input('Insulin Level', min_value=0, step=1)
 
         bmi = st.number_input('BMI value', min_value=0.0, step=0.1)
