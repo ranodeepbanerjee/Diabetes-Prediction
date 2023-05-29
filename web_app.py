@@ -1,6 +1,6 @@
 import numpy as np
 
-import pickle 
+import pickle
 
 import streamlit as st
 
@@ -12,17 +12,11 @@ loaded_model = pickle.load(open('trained_model.sav', 'rb'))
 
 def diabetes_prediction(input_data):
 
-    # Changing the input_data to numpy array
-
     input_data_as_numpy_array = np.asarray(input_data)
 
-    # Reshape the array as we are predicting for one instance
-
-    input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
+    input_data_reshaped = input_data_as_numpy_array.reshape(1, -1)
 
     prediction = loaded_model.predict(input_data_reshaped)
-
-    
 
     if prediction[0] == 0:
 
@@ -58,6 +52,8 @@ def main():
 
         skin_thickness = st.number_input('Skin Thickness value', min_value=0, step=1)
 
+    with col2:
+
         insulin = st.number_input('Insulin Level', min_value=0, step=1)
 
         bmi = st.number_input('BMI value', min_value=0.0, step=0.1)
@@ -82,11 +78,41 @@ def main():
 
     st.subheader('Diabetes Prediction Result:')
 
-    result_container = st.empty()  # Empty container to display the result dynamically
+    result_container = st.empty()
 
     if diagnosis:
 
         result_container.success(diagnosis)
+
+    # Custom styling
+
+    st.markdown(
+
+        """
+
+        <style>
+
+        .stButton button {
+
+            padding: 0.6em 1.2em;
+
+            font-size: 1.2em;
+
+        }
+
+        .stTextInput input {
+
+            padding: 0.6em;
+
+        }
+
+        </style>
+
+        """,
+
+        unsafe_allow_html=True
+
+    )
 
 if __name__ == '__main__':
 
