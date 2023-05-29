@@ -1,66 +1,98 @@
 import numpy as np
+
 import pickle 
+
 import streamlit as st
 
 # Loading the saved data
+
 loaded_model = pickle.load(open('trained_model.sav', 'rb'))
 
-
-# creating a function for prediction
+# Creating a function for prediction
 
 def diabetes_prediction(input_data):
 
-    # changing the input_data to numpy array
+    # Changing the input_data to numpy array
+
     input_data_as_numpy_array = np.asarray(input_data)
 
-    # reshape the array as we are predicting for one instance
+    # Reshape the array as we are predicting for one instance
+
     input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
 
     prediction = loaded_model.predict(input_data_reshaped)
-    print(prediction)
 
-    if (prediction[0] == 0):
-        return 'The person is not diabetic'
-    else:
-        return 'The person is diabetic'
     
 
+    if prediction[0] == 0:
 
+        return 'The person is not diabetic'
+
+    else:
+
+        return 'The person is diabetic'
 
 def main():
-    
-    
-    # giving a title
+
+    # Giving a title and setting page width
+
+    st.set_page_config(page_title='Diabetes Prediction Web App', layout='wide')
+
     st.title('Diabetes Prediction Web App')
-    
-    
-    # getting the input data from the user
-    
-    
-    Pregnancies = st.text_input('Number of Pregnancies')
-    Glucose = st.text_input('Glucose Level')
-    BloodPressure = st.text_input('Blood Pressure value')
-    SkinThickness = st.text_input('Skin Thickness value')
-    Insulin = st.text_input('Insulin Level')
-    BMI = st.text_input('BMI value')
-    DiabetesPedigreeFunction = st.text_input('Diabetes Pedigree Function value')
-    Age = st.text_input('Age of the Person')
-    
-    
-    # code for Prediction
+
+    # Creating a side-by-side layout using columns
+
+    col1, col2 = st.columns(2)
+
+    # Getting the input data from the user
+
+    with col1:
+
+        st.header('Enter Patient Information')
+
+        pregnancies = st.number_input('Number of Pregnancies', min_value=0, step=1)
+
+        glucose = st.number_input('Glucose Level', min_value=0, step=1)
+
+        blood_pressure = st.number_input('Blood Pressure value', min_value=0, step=1)
+
+        skin_thickness = st.number_input('Skin Thickness value', min_value=0, step=1)
+
+    with col2:
+
+        st.header('Enter Patient Information (Contd.)')
+
+        insulin = st.number_input('Insulin Level', min_value=0, step=1)
+
+        bmi = st.number_input('BMI value', min_value=0.0, step=0.1)
+
+        diabetes_pedigree_function = st.number_input('Diabetes Pedigree Function value', min_value=0.0, step=0.1)
+
+        age = st.number_input('Age of the Person', min_value=0, step=1)
+
+    # Code for prediction
+
     diagnosis = ''
-    
-    # creating a button for Prediction
-    
+
+    # Creating a button for prediction
+
     if st.button('Diabetes Test Result'):
-        diagnosis = diabetes_prediction([Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age])
-        
-        
-    st.success(diagnosis)
-    
-    
-    
-    
-    
+
+        diagnosis = diabetes_prediction([pregnancies, glucose, blood_pressure, skin_thickness,
+
+                                         insulin, bmi, diabetes_pedigree_function, age])
+
+    # Displaying the result
+
+    st.subheader('Diabetes Prediction Result:')
+
+    result_container = st.empty()  # Empty container to display the result dynamically
+
+    if diagnosis:
+
+        result_container.success(diagnosis)
+
 if __name__ == '__main__':
+
     main()
+
