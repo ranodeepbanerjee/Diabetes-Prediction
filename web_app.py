@@ -4,6 +4,10 @@ import pickle
 
 import streamlit as st
 
+from PIL import Image
+
+import requests
+
 # Loading the saved data
 
 loaded_model = pickle.load(open('trained_model.sav', 'rb'))
@@ -34,6 +38,14 @@ def main():
 
     st.title('Diabetes Prediction Web App')
 
+    # Loading the image from URL
+
+    image_url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsuHwwPoOUBHTp_vqyJpo_ExPeGki19m7rKQ&usqp=CAU'  #URL
+
+    image = Image.open(requests.get(image_url, stream=True).raw)
+
+    st.image(image, use_column_width=True)
+
     # Creating a side-by-side layout using columns
 
     col1, col2 = st.columns(2)
@@ -53,6 +65,8 @@ def main():
         skin_thickness = st.number_input('Skin Thickness value', min_value=0, step=1)
 
     with col2:
+
+        st.header('Enter Patient Information (Contd.)')
 
         insulin = st.number_input('Insulin Level', min_value=0, step=1)
 
@@ -94,9 +108,27 @@ def main():
 
         .stButton button {
 
-            padding: 0.6em 1.2em;
+            padding: 0.8em 1.6em;
 
             font-size: 1.2em;
+
+            background-color: #FF6B6B;
+
+            color: white;
+
+            border-radius: 0.5em;
+
+            border: none;
+
+            box-shadow: none;
+
+            transition: all 0.3s ease;
+
+        }
+
+        .stButton button:hover {
+
+            background-color: #E63946;
 
         }
 
@@ -117,4 +149,6 @@ def main():
 if __name__ == '__main__':
 
     main()
+
+
 
